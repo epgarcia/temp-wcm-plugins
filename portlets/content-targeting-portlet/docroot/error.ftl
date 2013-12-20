@@ -16,14 +16,14 @@
 
 <#include "init.ftl" />
 
-<@aui["nav-bar"]>
-	<@aui["nav"]>
-		<#assign editUserSegmentURL = renderResponse.createRenderURL()>
+<div class="portlet" id="portlet_${plid}">
+	<div class="portlet-topper">
+		<h1 class="portlet-title">
+			<span class="portlet-title-text">${portlet_display.getTitle()}</span>
+		</h1>
+	</div>
 
-		${editUserSegmentURL.setParameter("mvcPath", "/html/user_segment/edit_user_segment.ftl")}
-
-		<@aui["nav-item"] href="${editUserSegmentURL}" iconCssClass="icon-plus" label="add-user-segment" />
-	</@>
-</@>
-
-Hello OSGi!
+	<div class="portlet-content">
+		Error!!!
+	</div>
+</div>

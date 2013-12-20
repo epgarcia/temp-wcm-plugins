@@ -14,16 +14,31 @@
  */
 -->
 
-<#include "init.ftl" />
+<#include "../../init.ftl" />
 
-<@aui["nav-bar"]>
-	<@aui["nav"]>
-		<#assign editUserSegmentURL = renderResponse.createRenderURL()>
 
-		${editUserSegmentURL.setParameter("mvcPath", "/html/user_segment/edit_user_segment.ftl")}
+<#assign redirect = paramUtil.getString(request, "redirect")>
 
-		<@aui["nav-item"] href="${editUserSegmentURL}" iconCssClass="icon-plus" label="add-user-segment" />
+<#assign userSegmentId = paramUtil.getLong(request, "userSegmentId")>
+
+
+
+<@liferay_ui["header"]
+	backURL="${redirect}"
+	title="new-user-segment"
+/>
+
+<@portlet["actionURL"] name="addUserSegment" var="addUserSegmentURL" />
+
+<@aui["form"] action="${addUserSegmentURL}" method="post" name="fm">
+
+	<@aui["input"] name="redirect" type="hidden" value="${redirect}" />
+
+	<@aui["input"] name="name" />
+
+	<@aui["input"] name="description" />
+
+	<@aui["button-row"]>
+		<@aui["button"] type="submit" />
 	</@>
 </@>
-
-Hello OSGi!
