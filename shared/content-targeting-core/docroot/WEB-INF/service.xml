@@ -34,7 +34,7 @@
 
 		<!-- Finder methods -->
 
-		<finder name="groupId" return-type="Collection">
+		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId" />
 		</finder>
 	</entity>
@@ -70,7 +70,7 @@
 
 		<!-- Finder methods -->
 
-		<finder name="groupId" return-type="Collection">
+		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId" />
 		</finder>
 	</entity>
@@ -105,7 +105,7 @@
 
 		<!-- Finder methods -->
 
-		<finder name="groupId" return-type="Collection">
+		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId" />
 		</finder>
 	</entity>
