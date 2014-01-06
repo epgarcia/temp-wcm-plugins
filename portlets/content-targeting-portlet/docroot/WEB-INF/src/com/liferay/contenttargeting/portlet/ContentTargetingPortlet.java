@@ -14,17 +14,26 @@
 
 package com.liferay.contenttargeting.portlet;
 
+import com.liferay.contenttargeting.NoSuchUserSegmentException;
+import com.liferay.contenttargeting.service.UserSegmentLocalServiceUtil;
+import com.liferay.contenttargeting.util.WebKeys;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.model.UserSegment;
+import com.liferay.contenttargeting.service.UserSegmentServiceUtil;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.portal.service.UserSegmentServiceUtil;
+import com.liferay.contenttargeting.model.UserSegment;
 import com.liferay.util.bridges.freemarker.FreeMarkerPortlet;
+
+import java.io.IOException;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
+import javax.portlet.PortletRequest;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
 /**
  * @author Eduardo Garcia
@@ -59,6 +68,43 @@ public class ContentTargetingPortlet extends FreeMarkerPortlet {
 				response.setRenderParameter("mvcPath", "/error.ftl");
 			}
 		}
+	}
+
+	@Override
+	public void render(
+			RenderRequest renderRequest, RenderResponse renderResponse)
+			throws IOException, PortletException {
+
+		try {
+			getUserSegment(renderRequest);
+		}
+		catch (Exception e) {
+			if (e instanceof NoSuchUserSegmentException ||
+					e instanceof PrincipalException) {
+
+				SessionErrors.add(renderRequest, e.getClass());
+			}
+			else {
+				throw new PortletException(e);
+			}
+		}
+
+		super.render(renderRequest, renderResponse);
+	}
+
+	protected void getUserSegment(PortletRequest portletRequest)
+		throws Exception {
+
+		long userSegmentId = ParamUtil.getLong(portletRequest, "userSegmentId");
+
+		if (userSegmentId <= 0) {
+			return;
+		}
+
+		UserSegment userSegment =
+			UserSegmentLocalServiceUtil.getUserSegment(userSegmentId);
+
+		portletRequest.setAttribute(WebKeys.USER_SEGMENT, userSegment);
 	}
 
 }

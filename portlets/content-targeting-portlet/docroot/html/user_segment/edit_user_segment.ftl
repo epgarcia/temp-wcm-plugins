@@ -30,6 +30,12 @@
 <@aui["form"] action="${addUserSegmentURL}" method="post" name="fm">
 	<@aui["input"] name="redirect" type="hidden" value="${redirect}" />
 
+	<#if request.getAttribute("USER_SEGMENT")??>
+		<#assign userSegment = request.getAttribute("USER_SEGMENT")>
+
+		<@aui["model-context"] bean=userSegment model=userSegment.getClass() />
+	</#if>
+
 	<@aui["input"] name="name" />
 
 	<@aui["input"] name="description" />

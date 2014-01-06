@@ -19,11 +19,14 @@ import com.liferay.contenttargeting.service.base.UserSegmentLocalServiceBaseImpl
 import com.liferay.counter.service.CounterLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.transaction.Propagation;
+import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * The implementation of the user segment local service.
@@ -70,6 +73,20 @@ public class UserSegmentLocalServiceImpl
 		userSegmentPersistence.update(userSegment);
 
 		return userSegment;
+	}
+
+	@Override
+	public List<UserSegment> getUserSegments(long groupId)
+		throws PortalException, SystemException {
+
+		return userSegmentPersistence.findByGroupId(groupId);
+	}
+
+	@Override
+	public long getUserSegmentsCount(long groupId)
+		throws PortalException, SystemException {
+
+		return userSegmentPersistence.countByGroupId(groupId);
 	}
 
 	@Override

@@ -16,9 +16,8 @@
 
 <#include "init.ftl" />
 
-<#assign userSegmentService = serviceLocator.findService("com.liferay.portal.service.UserSegmentService")>
+<#assign userSegmentService = serviceLocator.findService("content-targeting-core", "com.liferay.contenttargeting.service.UserSegmentService")>
 <#assign userSegmentResults = userSegmentService.getUserSegments(themeDisplay.getScopeGroupId())>
-<#assign userSegmentResultsTotal = userSegmentService.getUserSegmentsCount(themeDisplay.getScopeGroupId())>
 
 <@aui["nav-bar"]>
 	<@aui["nav"]>
@@ -39,20 +38,29 @@
 >
     <@liferay_ui["search-container-results"]
 		results=userSegmentResults
-		total=userSegmentResultsTotal
+		total=userSegmentResults?size
 	/>
 
     <@liferay_ui["search-container-row"]
-		className="com.liferay.portal.model.UserSegment"
+		className="com.liferay.contenttargeting.model.UserSegment"
 		modelVar="userSegment"
 	>
-        <@liferay_ui["search-container-column-text"]
+
+		<#assign rowURL = renderResponse.createRenderURL()>
+
+		${rowURL.setParameter("mvcPath", "/html/user_segment/edit_user_segment.ftl")}
+		${rowURL.setParameter("redirect", portalUtil.getCurrentURL(request))}
+		${rowURL.setParameter("userSegmentId", userSegment.getSegmentId()?string)}
+
+		<@liferay_ui["search-container-column-text"]
 			name="name"
+			href=rowURL
 			value=userSegment.getName()
 		/>
 
 		<@liferay_ui["search-container-column-text"]
 			name="description"
+			href=rowURL
 			value=userSegment.getDescription()
 		/>
     </@>
