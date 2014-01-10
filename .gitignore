@@ -12,6 +12,7 @@
 .sass_cache_*.css
 _sass_cache_*.css
 
+/*/*/.idea
 /*/*/bin
 /*/*/classes
 /*/*/temp
