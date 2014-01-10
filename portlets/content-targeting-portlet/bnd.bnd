@@ -9,6 +9,8 @@ Export-Package:\
 	com.liferay.contenttargeting.portlet
 Import-Package:\
 	com.liferay.contenttargeting.api.model,\
+	com.liferay.contenttargeting.service,\
+	com.liferay.contenttargeting.service.messaging,\
 	com.liferay.portal.kernel.exception,\
 	com.liferay.portal.kernel.language,\
 	com.liferay.portal.kernel.lar,\
@@ -26,7 +28,7 @@ Import-Package:\
 	javax.servlet.http,\
 	*;resolution:="optional"
 Private-Package: com.liferay.contenttargeting.portlet.internal
-Service-Component:com.liferay.contenttargeting.portlet.*
+Service-Component: com.liferay.contenttargeting.portlet.*
 Web-ContextPath: /content-targeting-portlet
 -wab: \
 	docroot,\
@@ -38,5 +40,4 @@ Web-ContextPath: /content-targeting-portlet
 	{WEB-INF/web.xml=docroot/WEB-INF/web.xml}
 -wablib: \
 	${app.server.portal.dir}/WEB-INF/lib/util-java.jar,\
-	${app.server.portal.dir}/WEB-INF/lib/util-taglib.jar,\
-	${plugin.lib.dir}/content-targeting-core-service.jar
+	${app.server.portal.dir}/WEB-INF/lib/util-taglib.jar

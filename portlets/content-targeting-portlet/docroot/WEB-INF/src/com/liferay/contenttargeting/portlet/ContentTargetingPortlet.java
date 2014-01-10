@@ -14,13 +14,9 @@
 
 package com.liferay.contenttargeting.portlet;
 
-import aQute.bnd.annotation.component.Reference;
 import com.liferay.contenttargeting.api.model.RulesRegistry;
 import com.liferay.contenttargeting.model.UserSegment;
-import com.liferay.contenttargeting.portlet.internal.RulesRegistryFactory;
-import com.liferay.contenttargeting.service.UserSegmentLocalService;
-import com.liferay.contenttargeting.service.UserSegmentService;
-import com.liferay.contenttargeting.service.UserSegmentServiceUtil;
+import com.liferay.contenttargeting.portlet.internal.ComponentsRegistryFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.security.auth.PrincipalException;
@@ -36,15 +32,6 @@ import javax.portlet.ActionResponse;
  */
 public class ContentTargetingPortlet extends FreeMarkerPortlet {
 
-	private UserSegmentService _userSegmentService;
-
-	@Reference
-	public void setUserSegmentService(
-		UserSegmentService userSegmentService) {
-
-		_userSegmentService = userSegmentService;
-	}
-
 	public void addUserSegment(ActionRequest request, ActionResponse response)
 		throws Exception {
 
@@ -55,12 +42,12 @@ public class ContentTargetingPortlet extends FreeMarkerPortlet {
 			UserSegment.class.getName(), request);
 
 		try {
-			_userSegmentService.addUserSegment(
+			ComponentsRegistryFactory.getUserSegmentService().addUserSegment(
 				name, description, serviceContext);
 
 			String redirect = ParamUtil.getString(request, "redirect");
 
-			response.sendRedirect(redirect);
+			//response.sendRedirect(redirect);
 		}
 		catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
@@ -72,10 +59,12 @@ public class ContentTargetingPortlet extends FreeMarkerPortlet {
 			else {
 				response.setRenderParameter("mvcPath", "/error.ftl");
 			}
+
+			e.printStackTrace();
 		}
 	}
 
 	private RulesRegistry _rulesRegistry =
-		RulesRegistryFactory.getRulesRegistryFactory();
+		ComponentsRegistryFactory.getRulesRegistryFactory();
 
 }
