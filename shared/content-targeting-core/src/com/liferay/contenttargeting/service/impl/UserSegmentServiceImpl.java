@@ -14,7 +14,6 @@
 
 package com.liferay.contenttargeting.service.impl;
 
-import aQute.bnd.annotation.component.Component;
 import com.liferay.contenttargeting.model.UserSegment;
 import com.liferay.contenttargeting.service.base.UserSegmentServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -35,7 +34,6 @@ import com.liferay.portal.service.ServiceContext;
  * @see com.liferay.contenttargeting.service.base.UserSegmentServiceBaseImpl
  * @see com.liferay.contenttargeting.service.UserSegmentServiceUtil
  */
-@Component(provide = com.liferay.contenttargeting.service.UserSegmentService.class)
 public class UserSegmentServiceImpl extends UserSegmentServiceBaseImpl {
 
 	@Override
