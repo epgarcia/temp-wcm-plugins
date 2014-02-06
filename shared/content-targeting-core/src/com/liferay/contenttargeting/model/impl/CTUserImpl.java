@@ -17,9 +17,9 @@ package com.liferay.contenttargeting.model.impl;
 import com.liferay.contenttargeting.api.model.RulesRegistry;
 import com.liferay.contenttargeting.model.UserSegment;
 import com.liferay.contenttargeting.service.UserSegmentLocalServiceUtil;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.UserServiceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +38,10 @@ public class CTUserImpl extends CTUserBaseImpl {
 	public CTUserImpl() {
 	}
 
+	@Override
 	public long[] getMatchesUserSegmentIds(
 			long[] groupIds, RulesRegistry rulesRegistry)
-		throws PortalException, SystemException {
+		throws Exception {
 
 		if (ArrayUtil.isEmpty(groupIds)) {
 			return null;
@@ -58,6 +59,19 @@ public class CTUserImpl extends CTUserBaseImpl {
 		}
 
 		return ArrayUtil.toLongArray(userSegmentIds);
+	}
+
+	@Override
+	public User getUser() {
+		if (getUserId() > 0) {
+			try {
+				return UserServiceUtil.getUserById(getUserId());
+			}
+			catch (Exception e) {
+			}
+		}
+
+		return null;
 	}
 
 }

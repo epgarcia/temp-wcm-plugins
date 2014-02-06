@@ -1,0 +1,14 @@
+.targeted-content-display-portlet {
+	.selected-content {
+		margin-top: 10px;
+	}
+
+	.user-segment-selector {
+		margin-bottom: 10px;
+		overflow: hidden;
+
+		.tagselector-content {
+			overflow: hidden;
+		}
+	}
+}
