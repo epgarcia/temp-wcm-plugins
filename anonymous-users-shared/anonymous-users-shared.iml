@@ -4,12 +4,15 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/../shared/anonymous-users-shared">
       <sourceFolder url="file://$MODULE_DIR$/../shared/anonymous-users-shared/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../shared/anonymous-users-shared/service" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/../shared/anonymous-users-shared/classes" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="osgi" level="project" />
     <orderEntry type="library" name="portal" level="project" />
+    <orderEntry type="library" name="reference" level="project" />
+    <orderEntry type="module" module-name="service-utils-shared" />
   </component>
 </module>
 
