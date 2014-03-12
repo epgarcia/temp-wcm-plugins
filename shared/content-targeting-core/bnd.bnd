@@ -8,7 +8,8 @@ Export-Package: com.liferay.contenttargeting,\
 	com.liferay.contenttargeting.service.messaging,\
 	com.liferay.contenttargeting.service.permission,\
 	com.liferay.contenttargeting.util
-Import-Package = com.liferay.contenttargeting,\
+Import-Package = com.liferay.anonymoususers,\
+ 	com.liferay.contenttargeting,\
 	com.liferay.contenttargeting.api.model,\
 	com.germinus.easyconf,\
 	com.liferay.contenttargeting.model,\
