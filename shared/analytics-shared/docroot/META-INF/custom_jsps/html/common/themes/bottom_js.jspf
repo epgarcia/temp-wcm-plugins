@@ -1,0 +1,5 @@
+<liferay-util:include page="/html/commons/themes/bottom_js.portal.jspf" />
+
+<script>
+    alert("This is analytics script send code!")
+</script>
