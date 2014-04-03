@@ -18,6 +18,7 @@
       <module fileurl="file://$PROJECT_DIR$/shared/http-service-shared/log-bridge-shared-master.iml" filepath="$PROJECT_DIR$/shared/http-service-shared/log-bridge-shared-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/hooks/portal-6-2-x-compat-hook/portal-6-2-x-compat-hook.iml" filepath="$PROJECT_DIR$/hooks/portal-6-2-x-compat-hook/portal-6-2-x-compat-hook.iml" />
       <module fileurl="file://$PROJECT_DIR$/shared/service-utils-shared/service-utils-shared.iml" filepath="$PROJECT_DIR$/shared/service-utils-shared/service-utils-shared.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shared/simple-analytics-provider-shared/simple-analytics-provider-shared.iml" filepath="$PROJECT_DIR$/shared/simple-analytics-provider-shared/simple-analytics-provider-shared.iml" />
       <module fileurl="file://$PROJECT_DIR$/trunk.iml" filepath="$PROJECT_DIR$/trunk.iml" />
     </modules>
   </component>
