@@ -13,6 +13,7 @@
     <orderEntry type="library" name="reference" level="project" />
     <orderEntry type="module" module-name="analytics-shared" />
     <orderEntry type="module" module-name="anonymous-users-shared" />
+    <orderEntry type="module" module-name="service-utils-shared" />
   </component>
 </module>
 

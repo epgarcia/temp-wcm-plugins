@@ -4,4 +4,13 @@
     <listener>
         <listener-class>com.liferay.portal.kernel.servlet.PluginContextListener</listener-class>
     </listener>
+	<servlet>
+		<servlet-name>Simple Analytics Provider</servlet-name>
+		<servlet-class>com.liferay.simpleanalyticsprovider.servlet.SimpleAnalyticsProviderServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Simple Analytics Provider</servlet-name>
+		<url-pattern>/event/*</url-pattern>
+	</servlet-mapping>
 </web-app>
