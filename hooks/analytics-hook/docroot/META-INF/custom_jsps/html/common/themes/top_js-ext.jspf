@@ -13,3 +13,9 @@
  * details.
  */
 --%>
+
+<script src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, themeDisplay.getCDNDynamicResourcesHost() + themeDisplay.getPathJavaScript() + "/analytics/analytics.js", "", javaScriptLastModified)) %>" type="text/javascript"></script>
+
+<script>
+    debugger;
+</script>
