@@ -8,6 +8,6 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Analytics Provider</servlet-name>
-		<url-pattern>/track*</url-pattern>
+		<url-pattern>/track/*</url-pattern>
 	</servlet-mapping>
 </web-app>

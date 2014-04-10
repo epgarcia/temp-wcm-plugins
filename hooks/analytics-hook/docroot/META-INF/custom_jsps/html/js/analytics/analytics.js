@@ -13360,14 +13360,14 @@ require.register("yields-prevent/index.js", function(exports, require, module){
 
 /**
  * prevent default on the given `e`.
- * 
+ *
  * examples:
- * 
+ *
  *      anchor.onclick = prevent;
  *      anchor.onclick = function(e){
  *        if (something) return prevent(e);
  *      };
- * 
+ *
  * @param {Event} e
  */
 
@@ -13434,6 +13434,7 @@ var defaults = require('defaults');
 var each = require('each');
 var Emitter = require('emitter');
 var group = require('./group');
+var integration = require('integration');
 var is = require('is');
 var isEmail = require('is-email');
 var isMeta = require('is-meta');
@@ -13610,6 +13611,7 @@ Analytics.prototype.identify = function (id, traits, options, fn) {
   return this;
 };
 
+Analytics.prototype.integration = integration;
 
 /**
  * Return the current user.
