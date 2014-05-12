@@ -16,8 +16,8 @@ package com.liferay.contenttargeting.rules.ipgeocode;
 
 import com.liferay.anonymoususers.model.AnonymousUser;
 import com.liferay.contenttargeting.model.RuleInstance;
-import com.liferay.contenttargeting.rules.ipgeocode.model.IPInfo;
-import com.liferay.contenttargeting.rules.ipgeocode.util.IPGeocodeUtil;
+import com.liferay.geolocation.model.Geolocation;
+import com.liferay.geolocation.service.GeolocationLocalServiceUtil;
 import com.liferay.portal.json.JSONObjectImpl;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -30,6 +30,7 @@ import com.liferay.portal.model.impl.CountryImpl;
 import com.liferay.portal.model.impl.RegionImpl;
 import com.liferay.portal.service.CountryServiceUtil;
 import com.liferay.portal.service.RegionServiceUtil;
+import com.liferay.portal.service.ServiceContext;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -51,7 +52,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
  */
 @PrepareForTest( {
 	CalendarFactoryUtil.class, CountryServiceUtil.class, HttpUtil.class,
-	IPGeocodeUtil.class, JSONFactoryUtil.class, RegionServiceUtil.class
+	GeolocationLocalServiceUtil.class, JSONFactoryUtil.class,
+	RegionServiceUtil.class
 })
 @RunWith(PowerMockRunner.class)
 public class IpGeocodeRuleTest extends PowerMockito {
@@ -61,7 +63,7 @@ public class IpGeocodeRuleTest extends PowerMockito {
 		_ipGeocodeRule = new IpGeocodeRule();
 
 		mockStatic(CountryServiceUtil.class);
-		mockStatic(IPGeocodeUtil.class);
+		mockStatic(GeolocationLocalServiceUtil.class);
 		mockStatic(JSONFactoryUtil.class);
 		mockStatic(RegionServiceUtil.class);
 
@@ -111,15 +113,23 @@ public class IpGeocodeRuleTest extends PowerMockito {
 		);
 
 		when(
-			_anonymousUser.getLastIp()
+			_geolocation.getCountryCode()
 		).thenReturn(
-			_SPAIN_IP
+			"ES"
 		);
 
 		when(
-			IPGeocodeUtil.getIPInfo(Mockito.anyString())
+			_geolocation.getRegionName()
 		).thenReturn(
-			new IPInfo(_generateJSONSpain())
+			"Madrid"
+		);
+
+		when(
+			GeolocationLocalServiceUtil.geoLocate(
+				Mockito.anyLong(), Mockito.anyString(), Mockito.anyLong(),
+				Mockito.anyString(), (ServiceContext)Mockito.anyObject())
+		).thenReturn(
+			_geolocation
 		);
 
 		Assert.assertTrue(
@@ -145,15 +155,17 @@ public class IpGeocodeRuleTest extends PowerMockito {
 		);
 
 		when(
-			_anonymousUser.getLastIp()
+			_geolocation.getCountryCode()
 		).thenReturn(
-			_SPAIN_IP
+			"ES"
 		);
 
 		when(
-			IPGeocodeUtil.getIPInfo(Mockito.anyString())
+			GeolocationLocalServiceUtil.geoLocate(
+				Mockito.anyLong(), Mockito.anyString(), Mockito.anyLong(),
+				Mockito.anyString(), (ServiceContext)Mockito.anyObject())
 		).thenReturn(
-			new IPInfo(_generateJSONSpain())
+			_geolocation
 		);
 
 		Assert.assertTrue(
@@ -179,60 +191,25 @@ public class IpGeocodeRuleTest extends PowerMockito {
 		);
 
 		when(
-			_anonymousUser.getLastIp()
+			_geolocation.getCountryCode()
 		).thenReturn(
-			_US_IP
+			"US"
 		);
 
 		when(
-			IPGeocodeUtil.getIPInfo(Mockito.anyString())
+			GeolocationLocalServiceUtil.geoLocate(
+				Mockito.anyLong(), Mockito.anyString(), Mockito.anyLong(),
+				Mockito.anyString(), (ServiceContext)Mockito.anyObject())
 		).thenReturn(
-			new IPInfo(_generateJSONUSA())
+			_geolocation
 		);
 
 		Assert.assertTrue(
 			_ipGeocodeRule.evaluate(_ruleInstance, _anonymousUser));
 	}
 
-	private JSONObject _generateJSONSpain() {
-		JSONObject jsonObj = new JSONObjectImpl();
-
-		jsonObj.put("ip", "81.47.192.13");
-		jsonObj.put("country_code", "ES");
-		jsonObj.put("country_name", "Spain");
-		jsonObj.put("region_code", "29");
-		jsonObj.put("region_name", "Madrid");
-		jsonObj.put("city", "Madrid");
-		jsonObj.put("zipcode", "");
-		jsonObj.put("latitude", 40.4086);
-		jsonObj.put("longitude", -3.6922);
-		jsonObj.put("metro_code", "");
-		jsonObj.put("area_code", "");
-
-		return jsonObj;
-	}
-
-	private JSONObject _generateJSONUSA() {
-		JSONObject jsonObj = new JSONObjectImpl();
-
-		jsonObj.put("ip", "173.194.41.248");
-		jsonObj.put("country_code", "US");
-		jsonObj.put("country_name", "United States");
-		jsonObj.put("region_code", "CA");
-		jsonObj.put("region_name", "California");
-		jsonObj.put("city", "Mountain View");
-		jsonObj.put("zipcode", "94043");
-		jsonObj.put("latitude", 37.4192);
-		jsonObj.put("longitude", -122.0574);
-		jsonObj.put("metro_code", "807");
-		jsonObj.put("area_code", "650");
-
-		return jsonObj;
-	}
-
-	private static final String _SPAIN_IP = "81.47.192.13";
-
-	private static final String _US_IP = "173.194.41.248";
+	@Mock
+	private Geolocation _geolocation;
 
 	@Mock
 	private AnonymousUser _anonymousUser;
